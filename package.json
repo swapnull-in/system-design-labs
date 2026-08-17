@@ -1,0 +1,11 @@
+{
+  "name": "system-design-labs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The hub for the System Design Labs family — ten hands-on TypeScript repos with interactive web labs, drills, and study guides.",
+  "scripts": {
+    "web": "node web/serve.mjs",
+    "deploy": "npx wrangler pages deploy web --project-name system-design-labs"
+  }
+}
