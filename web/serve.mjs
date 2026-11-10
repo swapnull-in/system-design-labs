@@ -2,20 +2,21 @@
  * Zero-dependency static server for the interactive demo.
  *   npm run web            → serves web/ (tries PORT or 8080, then next free port)
  *   PORT=3000 npm run web  → start at a port you choose
- * Or skip this entirely: web/index.html is standalone — open it directly in a browser.
+ *   node web/serve.mjs dist → serve another folder (the built family site)
  */
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { dirname, join, normalize } from "node:path";
+import { dirname, join, normalize, resolve } from "node:path";
 
-const ROOT = dirname(fileURLToPath(import.meta.url));
+const ROOT = process.argv[2] ? resolve(process.argv[2]) : dirname(fileURLToPath(import.meta.url));
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".woff2": "font/woff2", ".mjs": "text/javascript" };
 
 const server = createServer(async (req, res) => {
   // Strip query string, block path traversal, default to index.html.
   const path = normalize(decodeURIComponent((req.url ?? "/").split("?")[0])).replace(/^(\.\.[/\\])+/, "");
-  const file = join(ROOT, path === "/" ? "index.html" : path);
+  // Directory URLs ("/" or "/caching/") serve that folder's index.html.
+  const file = join(ROOT, path.endsWith("/") ? path + "index.html" : path);
   try {
     const body = await readFile(file);
     res.setHeader("content-type", TYPES[file.slice(file.lastIndexOf("."))] ?? "application/octet-stream");
