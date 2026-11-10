@@ -1,5 +1,5 @@
-# Cloudflare Pages config. The site is pure static files in web/ (no build step).
-# Deploy from the CLI:   npm run deploy   (runs `wrangler pages deploy web`)
+# Cloudflare Pages config. scripts/build.mjs assembles the hub and all ten labs into dist/.
+# Deploy from the CLI:   npm run deploy   (builds, then runs `wrangler pages deploy dist`)
 # First time only:       npx wrangler login
 name = "system-design-labs"
-pages_build_output_dir = "web"
+pages_build_output_dir = "dist"
