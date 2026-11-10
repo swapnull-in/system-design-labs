@@ -24,6 +24,14 @@ Staff-level system-design topic. Every concept in every repo is:
 | 09 | [rate-limiting](https://github.com/swapnull-in/rate-limiting) | Rate Lab |
 | 10 | [distributed-systems](https://github.com/swapnull-in/distributed-systems) | Failure Lab |
 
+## Companion repo
+
+[kafka-chat-pipeline](https://github.com/swapnull-in/kafka-chat-pipeline) is a
+separate hands-on track rather than an eleventh lab: a chat pipeline on a real
+Kafka broker with producers, consumer groups, offsets and the outbox pattern.
+It has no web lab or drill cards and needs Kafka and Postgres running. Do it
+after `messaging-queues`.
+
 ## This repo
 
 The hub page and the build that publishes the whole family as **one site**:
